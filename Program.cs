@@ -1,6 +1,9 @@
 ﻿// This system is about Billiard Table Management. This is the basic program I came up with base on the previous lesson tackled.
 // This system will further improve as we are taught more and as I learn more about the langauge
 //The First 3 functions of my program are View, Add and remove 
+// 2nd push: method added 
+// Improvements to do: replace the if else with switch case for better readability and more maintable, Add exit Option, Add more tables,
+// Add more functions like update, search, and history.
 using System;
 namespace billiardTableManagement1
 {
@@ -14,133 +17,147 @@ namespace billiardTableManagement1
         {
             while (true)
             {
-                Console.WriteLine("\n ************** WELCOME TO BILLIARD TABLE MANAGEMENT **************");
-                Console.WriteLine("1. View Billiard Tables");
-                Console.WriteLine("2. Add Opponent to a Table");
-                Console.WriteLine("3. Remove Player from a Table");
-
-                Console.Write("\n Please Enter Selected Number HERE: ");
+                DisplayOptions();
+                Console.Write("\nPlease Enter Selected NUMBER HERE: ");
                 int chosenNum = Convert.ToInt16(Console.ReadLine());
 
                 if (chosenNum == 1)
                 {
-                    Console.WriteLine("The Billiard Tables are Listed Below: ");
-
-                    if (opponentTable1 == " ")
-                    {
-                        Console.WriteLine("Table 1 is AVAILABLE");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Table 1: " + opponentTable1 + "[NOT AVAILABLE]");
-                    }
-                    if (opponentTable2 == " ")
-                    {
-                        Console.WriteLine("Table 2 is AVAILABLE");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Table 2: " + opponentTable2 + "[NOT AVAILABLE]");
-                    }
-                    if (opponentTable3 == " ")
-                    {
-                        Console.WriteLine("Table 3 is AVAILABLE");
-                    }
-                    else
-                    {
-                        Console.WriteLine("Table 3: " + opponentTable3 + "[NOT AVAILABLE]");
-                    }
+                    Console.WriteLine("\n***The Billiard Tables are Listed Below: ***");
+                    ViewTables();
                 }
                 else if (chosenNum == 2)
                 {
-                    Console.Write("Kindly Enter a Table Number from [1-3] HERE: ");
-                    int tableNum = Convert.ToInt16(Console.ReadLine());
-
-                    Console.Write("Enter Opponent's Name HERE: ");
-                    string opponentName = Console.ReadLine();
-                    string playerName = player + " Versus " + opponentName;
-
-                    if (tableNum == 1)
-                    {
-                        if (opponentTable1 == " ")
-                        {
-                            opponentTable1 = playerName;
-                            Console.WriteLine("Table 1:  " + playerName);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Table 1 is NOT AVAILABLE as of the moment");
-                        }
-                    }
-                    else if (tableNum == 2)
-                    {
-                        if (opponentTable2 == " ")
-                        {
-                            opponentTable2 = playerName;
-                            Console.WriteLine("Table 2:  " + playerName);
-                        }
-                        else
-                        {
-                            Console.WriteLine("Table 2 is NOT AVAILABLE as of the moment");
-                        }
-                    }
-                    else if (tableNum == 3)
-                    {
-                        if (opponentTable3 == " ")
-                        {
-                            opponentTable3 = playerName;
-                            Console.WriteLine("Table 3:  " + playerName);
-                        }
-                        else
-                            Console.WriteLine("Table 3 is NOT AVAILABLE as of the moment");
-                    }
+                    AddOpponent();
                 }
                 else if (chosenNum == 3)
                 {
-                    Console.Write("Kindly Enter a Table Number to REMOVE an Opponent [1-3]: ");
-                    int opponentRemove = Convert.ToInt16(Console.ReadLine());
+                    RemovefromTable();
 
-                    if (opponentRemove == 1)
+                }
+                else
+                {
+                    Console.WriteLine("The Number Entered is INVALID. Please Try Again ...... ");
+                }
+            }
+        }
+            
+        static void DisplayOptions()
+        {
+            Console.WriteLine("\n----------------- WELCOME TO BILLIARD TABLE MANAGEMENT -----------------");
+            Console.WriteLine("1. View Billiard Table Availability");
+            Console.WriteLine("2. Add Opponent to a Table: ");
+            Console.WriteLine("3. Remove Opponent from a Table: ");
+        }
+        static void ViewTables()
+        {
+            DisplayTable(1, opponentTable1);
+            DisplayTable(2, opponentTable2);
+            DisplayTable(3, opponentTable3);
+        }
+        static void DisplayTable(int tableNumber, string opponentName)
+        {
+            if (opponentName == " ")
+            {
+                Console.WriteLine("Table " + tableNumber + " is AVAILABLE");
+            }
+            else
+            {
+                Console.WriteLine("Table " + tableNumber + ": " + opponentName + " [CURRENTLY OCCUPIED]");
+            }
+            }
+            static void AddOpponent()
+            {
+                Console.Write("Kindly Enter a Table NUMBER to ADD an Opponent [1-3]: ");
+                int tableNumber = Convert.ToInt16(Console.ReadLine());
+
+                Console.Write("Enter Opponent's NAME HERE: ");
+                string opponentName = Console.ReadLine();
+                string playerName = player + " VERSUS " + opponentName;
+
+                if (tableNumber == 1)
+                {
+                    if (opponentTable1 == " ")
                     {
-                        if (opponentTable1 != " ")
-                            opponentTable1 = " ";
-                        else
-                        {
-                            Console.WriteLine("Table 1 is AVAILABLE");
-                        }
-                    }
-                    else if (opponentRemove == 2)
-                    {
-                        if (opponentTable2 != " ")
-                            opponentTable2 = " ";
-                        else
-                        {
-                            Console.WriteLine("Table 2 is AVAILABLE");
-                        }
-                    }
-                    else if (opponentRemove == 3)
-                    {
-                        if (opponentTable3 != " ")
-                            opponentTable3 = " ";
-                        else
-                        {
-                            Console.WriteLine("Table 3 is AVAILABLE");
-                        }
+                        opponentTable1 = playerName;
+                        Console.WriteLine("Table 1: " + playerName);
                     }
                     else
                     {
-                        Console.WriteLine("The Number Entered is INVALID");
+                        Console.WriteLine("Table 1 is NOT AVAILABLE as of the moment");
+                    }
+                }
+                else if (tableNumber == 2)
+                {
+                    if (opponentTable2 == " ")
+                    {
+                        opponentTable2 = playerName;
+                        Console.WriteLine("Table 2: " + playerName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Table 2 is NOT AVAILABLE as of the moment");
+                    }
+                }
+                else if (tableNumber == 3)
+                {
+                    if (opponentTable3 == " ")
+                    {
+                        opponentTable3 = playerName;
+                        Console.WriteLine("Table 3: " + playerName);
+                    }
+                    else
+                    {
+                        Console.WriteLine("Table 3 is NOT AVAILABLE as of the moment");
                     }
                 }
                 else
                 {
-                    Console.WriteLine("You Entered an INVALID Input. Please Try Again");
+                    Console.WriteLine("The Number Entered is INVALID");
                 }
             }
+            static void RemovefromTable()
+            {
+                Console.Write("Kindly Enter a Table NUMBER to REMOVE an Opponent [1-3]: ");
+                int removeOpponent = Convert.ToInt16(Console.ReadLine());
 
+                if (removeOpponent == 1)
+                {
+                    if (opponentTable1 != " ")
+                        opponentTable1 = " ";
+                    else
+                    {
+                        Console.WriteLine("Table 1 is AVAILABLE");
+                    }
+                }
+                else if (removeOpponent == 2)
+                {
+                    if (opponentTable2 != " ")
+                        opponentTable2 = " ";
+                    else
+                    {
+                        Console.WriteLine("Table 2 is AVAILABLE");
+                    }
+                }
+                else if (removeOpponent == 3)
+                {
+                    if (opponentTable3 != " ")
+                        opponentTable3 = " ";
+                    else
+                    {
+                        Console.WriteLine("Table 3 is AVAILABLE");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("The Number Entered is INVALID");
+                }
+            }
         }
     }
-}
+
+
+
 
 
 
