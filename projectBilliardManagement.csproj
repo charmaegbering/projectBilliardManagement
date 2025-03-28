@@ -7,4 +7,14 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <Compile Remove="Bilyaran BusinessDataLogic\**" />
+    <EmbeddedResource Remove="Bilyaran BusinessDataLogic\**" />
+    <None Remove="Bilyaran BusinessDataLogic\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="Bilyaran BusinessDataLogic\Bilyaran BusinessDataLogic.csproj" />
+  </ItemGroup>
+
 </Project>
