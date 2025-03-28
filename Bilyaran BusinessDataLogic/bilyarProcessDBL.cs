@@ -9,40 +9,48 @@ namespace Bilyaran_BusinessDataLogic
 {
     public class bilyarProcessBDL
     {
-         string player = "Chame";
-         string opponentTable1 = " ";
-         string opponentTable2 = " ";
-         string opponentTable3 = " ";
+        private string player = "Chame";
+        private List<string> opponentTable;
 
+        public bilyarProcessBDL() : this("Chame", 3)
+        {
+        }
+
+        public bilyarProcessBDL(string playerName, int tableList)
+        {
+            player = playerName;
+            opponentTable = new List<string>(new string[tableList]);
+        }
         public string GetPlayer()
         {
             return player;           
         }
-        public string GetOpponentTable1() 
+        public string GetOpponent(int tableNumber) 
         { 
-            return opponentTable1;
-        }
-        public string GetOpponentTable2() 
-        { 
-            return opponentTable2;
-        }
-        public string GetOpponentTable3() 
-        { 
-            return opponentTable3;
-        }
+            if(tableNumber >= 1 && tableNumber <= opponentTable.Count)
+            {
+                return opponentTable[tableNumber -1 ];
 
-
-        public void SetOpponentTable1(string opponentName)
-        {
-            opponentTable1 = opponentName;
+            }
+            return null;
         }
-        public void SetOpponentTable2(string opponentName)
+        public void SetOpponentTable(int tableNumber, string opponentName)
         {
-            opponentTable2 = opponentName;
+            if (tableNumber >= 1 && tableNumber <= opponentTable.Count)
+            {
+                opponentTable[tableNumber - 1] = opponentName;
+            }
         }
-        public void SetOpponentTable3(string opponentName)
+        public void RemoveOpponent(int tableNumber)
         {
-            opponentTable3 = opponentName;
+            if (tableNumber >= 1 && tableNumber <= opponentTable.Count)
+            {
+                opponentTable[tableNumber - 1] = "";
+            }
+        }
+        public List<string> GetTables() 
+        {
+            return opponentTable;
         }
         }
     }

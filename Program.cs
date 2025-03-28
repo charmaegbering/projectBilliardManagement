@@ -15,7 +15,7 @@ namespace BilliardTableManagement
 {
     internal class Program
     {
-        static bilyarProcessBDL process = new bilyarProcessBDL();
+        static bilyarProcessBDL process = new bilyarProcessBDL("chame", 3);
 
         static void Main(string[] args)
         {
@@ -57,83 +57,69 @@ namespace BilliardTableManagement
         static void ViewTables()
         {
             Console.WriteLine("\n***The Billiard Tables are Listed Below: ***");
-            DisplayTable(1, process.GetPlayer(), process.GetOpponentTable1());
-            DisplayTable(2, process.GetPlayer(), process.GetOpponentTable2());
-            DisplayTable(3, process.GetPlayer(), process.GetOpponentTable3());
-        }
-        static void DisplayTable(int tableNum, string player, string opponentName)
-        {
-            if (opponentName == " ")
+            for (int i = 0; i < process.GetTables().Count; i++)
             {
-                Console.WriteLine("Table " + tableNum + " : " + " [AVAILABLE] ");
+                DisplayTable(i + 1, process.GetPlayer(), process.GetTables()[i]);
+            }
+        }
+        static void DisplayTable(int TableNumber, string playerName, string opponentName)
+        {
+            if (string.IsNullOrWhiteSpace(opponentName))
+            {
+                Console.WriteLine("Table " + TableNumber + " : " + " [AVAILABLE]");
             }
             else
             {
-                Console.WriteLine("Table " + tableNum + " : " + player + " [VERSUS] " + opponentName + " [CURRENTLY OCCUPIED] ");
+                Console.WriteLine("Table " + TableNumber + " : " + playerName + " [VERSUS] " + opponentName + " [CURRENTLY OCCUPIED] ");
             }
         }
 
         static void AddOpponent()
         {
-            Console.Write(" Enter a Table NUMBER to ADD an Opponent [1-3]: ");
-            int tableNumber = Convert.ToInt16(Console.ReadLine());
+            Console.Write(" Enter a Table NUMBER to ADD an Opponent [1-3]: ");            
 
-
-            if (tableNumber == 1)
-                if (process.GetOpponentTable1() == " ")
+            if (int.TryParse(Console.ReadLine(), out int tableNumber))
+            {
+                if (tableNumber >= 1 && tableNumber <= process.GetTables().Count)
                 {
-                    Console.Write("Enter the Opponent's NAME: ");
-                    string opponentName = Console.ReadLine();
-                    process.SetOpponentTable1(opponentName);
-                    Console.WriteLine("Table " + tableNumber + " : " + process.GetPlayer() + " [VERSUS] " + opponentName);
+                    if (string.IsNullOrWhiteSpace(process.GetOpponent(tableNumber)))
+                    {
+                        Console.Write("Enter the Opponent's NAME: ");
+                        string opponentName = Console.ReadLine();
+                        process.SetOpponentTable(tableNumber, opponentName);
+                        Console.WriteLine("Table " + tableNumber + " : " + process.GetPlayer() + " [VERSUS] " + opponentName);
+
+                    }
+                    else
+                    {
+                        Console.WriteLine("Table " + tableNumber + " : " + " [CURRENTLY OCCUPIED] ");
+                    }
                 }
                 else
                 {
-                    Console.WriteLine("Table " + tableNumber + " : " + " [CURRENTLY OCCUPIED] ");
+                    Console.WriteLine("Invalid Input. Please Try Again .......");
                 }
-
-            else if (tableNumber == 2)
-                if (process.GetOpponentTable2() == " ")
-                {
-                    Console.Write("Enter the Opponent's NAME: ");
-                    string opponentName = Console.ReadLine();
-                    process.SetOpponentTable2(opponentName);
-                    Console.WriteLine("Table " + tableNumber + " : " + process.GetPlayer() + " [VERSUS] " + opponentName);
-                }
-                else
-                {
-                    Console.WriteLine("Table " + tableNumber + " : " + " [CURRENTLY OCCUPIED] ");
-                }
-            else if (tableNumber == 3)
-                if (process.GetOpponentTable3() == " ")
-                {
-                    Console.Write("Enter the Opponent's NAME: ");
-                    string opponentName = Console.ReadLine();
-                    process.SetOpponentTable3(opponentName);
-                    Console.WriteLine("Table " + tableNumber + " : " + process.GetPlayer() + " [VERSUS] " + opponentName);
-                }
-                else
-                {
-                    Console.WriteLine("Table " + tableNumber + " : " + " [CURRENTLY OCCUPIED] ");
-                }
-        else {
-        Console.WriteLine("Invalid Number Entered. Please Try Again .........");
             }
-}
-        static void RemoveOpponent()
-        {
-            Console.Write("Enter a Table NUMBER to REMOVE an Opponent [1-3]: ");
-            int tableNumber = Convert.ToInt16(Console.ReadLine());
+        }
+            static void RemoveOpponent()
+            {
+                Console.Write("Enter a Table NUMBER to REMOVE an Opponent [1-3]: ");
 
-            if (tableNumber == 1)
-                process.SetOpponentTable1(" ");
-            else if (tableNumber == 2)
-                process.SetOpponentTable2(" ");
-            else if (tableNumber == 3)
-                process.SetOpponentTable3(" ");
-            else 
-                Console.WriteLine("Invalid Table Number. Please Try Again ...... ");
+                if (int.TryParse(Console.ReadLine(), out int tableNumber))
+                {
+                    if (tableNumber >= 1 && tableNumber <= process.GetTables().Count)
+                    {
+                        process.RemoveOpponent(tableNumber);
+                        Console.WriteLine("Opponent sucessfully removed from: " + tableNumber);
+                    }               
+                else
+                {
+                    Console.WriteLine("Invalid Input. Please Try Again .......");
+                }
+            }
         }
     }
 }
+
+
 
