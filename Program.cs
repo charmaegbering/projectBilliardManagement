@@ -6,6 +6,8 @@
 // Add more functions like update, search, and history.
 // 3rd push: UI and BusinessData Logic Separated, Changed the if-else to swtich 
 // Improvements to do: using of arrays or list
+// 4th Push: Done (CRUD Function with Data Layer)
+// To DO: use enums instead of number literals as per ma'am suggestion
 
 using Bilyaran_BusinessDataLogic;
 using BilyarDataLayer;
