@@ -2,55 +2,69 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Reflection.Metadata.Ecma335;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Bilyaran_BusinessDataLogic
 {
-    public class bilyarProcessBDL
+    public class bilyarProcessDBL
     {
-        private string player = "Chame";
-        private List<string> opponentTable;
+        //private string PlayerOne;
+        //private string PlayerTwo;
+        private List<string> Table;
+      
 
-        public bilyarProcessBDL() : this("Chame", 3)
+        public bilyarProcessDBL(int TableList)
         {
+            //PlayerOne = FirstPlayer;
+            //PlayerTwo = SecondPlayer;
+            Table = new List<string>(new string[TableList]);
+            //PlayersToAssign(1, FirstPlayer, SecondPlayer);
         }
+        
 
-        public bilyarProcessBDL(string playerName, int tableList)
+        public string GetTableStatus(int TableNumber)
         {
-            player = playerName;
-            opponentTable = new List<string>(new string[tableList]);
-        }
-        public string GetPlayer()
-        {
-            return player;           
-        }
-        public string GetOpponent(int tableNumber) 
-        { 
-            if(tableNumber >= 1 && tableNumber <= opponentTable.Count)
+            if (TableNumber >= 1 && TableNumber <= Table.Count)
             {
-                return opponentTable[tableNumber -1 ];
+                return Table[TableNumber - 1];
 
             }
             return null;
         }
-        public void SetOpponentTable(int tableNumber, string opponentName)
+        public bool SetAssignPlayers(int TableNumber, string PlayerOne, string PlayerTwo)
         {
-            if (tableNumber >= 1 && tableNumber <= opponentTable.Count)
+            if (TableNumber >= 1 && TableNumber <= Table.Count)
             {
-                opponentTable[tableNumber - 1] = opponentName;
+                Table[TableNumber - 1] = PlayerOne + " VERSUS " + PlayerTwo;
+                return true;
             }
+        return false;
         }
-        public void RemoveOpponent(int tableNumber)
+        public bool RemovePlayers(int tableNumber)
         {
-            if (tableNumber >= 1 && tableNumber <= opponentTable.Count)
+            if (tableNumber >= 1 && tableNumber <= Table.Count)
             {
-                opponentTable[tableNumber - 1] = "";
-            }
+                Table[tableNumber - 1] = "";
+                return true;
+            }      
+       return false;
         }
-        public List<string> GetTables() 
+        public List<string> GetTables()
         {
-            return opponentTable;
+            return Table;
         }
+        private void PlayersToAssign(int tableNumber, string PlayerOne, string PlayerTwo)
+        {
+            if (tableNumber >=1 && tableNumber <= Table.Count)
+            {
+                Table[tableNumber - 1] = PlayerOne + " VERSUS " + PlayerTwo;
+            }
+            else
+            {
+                Console.WriteLine("Table Number is INVALID. Please Try Again ...... ");
+            }
         }
     }
+}
