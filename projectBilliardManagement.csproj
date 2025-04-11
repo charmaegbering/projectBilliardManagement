@@ -9,12 +9,16 @@
 
   <ItemGroup>
     <Compile Remove="Bilyaran BusinessDataLogic\**" />
+    <Compile Remove="BilyarDataService\**" />
     <EmbeddedResource Remove="Bilyaran BusinessDataLogic\**" />
+    <EmbeddedResource Remove="BilyarDataService\**" />
     <None Remove="Bilyaran BusinessDataLogic\**" />
+    <None Remove="BilyarDataService\**" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="Bilyaran BusinessDataLogic\Bilyaran BusinessDataLogic.csproj" />
+    <ProjectReference Include="BilyarDataService\BilyarDataLayer.csproj" />
   </ItemGroup>
 
 </Project>

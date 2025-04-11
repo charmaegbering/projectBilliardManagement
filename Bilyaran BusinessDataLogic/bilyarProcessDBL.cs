@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -10,19 +11,14 @@ namespace Bilyaran_BusinessDataLogic
 {
     public class bilyarProcessDBL
     {
-        //private string PlayerOne;
-        //private string PlayerTwo;
         private List<string> Table;
-      
-
         public bilyarProcessDBL(int TableList)
         {
-            //PlayerOne = FirstPlayer;
-            //PlayerTwo = SecondPlayer;
+       
             Table = new List<string>(new string[TableList]);
-            //PlayersToAssign(1, FirstPlayer, SecondPlayer);
+           
         }
-        
+
 
         public string GetTableStatus(int TableNumber)
         {
@@ -40,7 +36,7 @@ namespace Bilyaran_BusinessDataLogic
                 Table[TableNumber - 1] = PlayerOne + " VERSUS " + PlayerTwo;
                 return true;
             }
-        return false;
+            return false;
         }
         public bool RemovePlayers(int tableNumber)
         {
@@ -48,23 +44,13 @@ namespace Bilyaran_BusinessDataLogic
             {
                 Table[tableNumber - 1] = "";
                 return true;
-            }      
-       return false;
-        }
-        public List<string> GetTables()
-        {
-            return Table;
-        }
-        private void PlayersToAssign(int tableNumber, string PlayerOne, string PlayerTwo)
-        {
-            if (tableNumber >=1 && tableNumber <= Table.Count)
-            {
-                Table[tableNumber - 1] = PlayerOne + " VERSUS " + PlayerTwo;
             }
-            else
-            {
-                Console.WriteLine("Table Number is INVALID. Please Try Again ...... ");
-            }
+            return false;
         }
+        public IReadOnlyCollection<string> GetTables()
+        {
+            return Table.AsReadOnly();
+        }
+        
     }
 }

@@ -8,6 +8,7 @@
 // Improvements to do: using of arrays or list
 
 using Bilyaran_BusinessDataLogic;
+using BilyarDataLayer;
 using System;
 using System.Diagnostics;
 using System.Reflection;
@@ -23,24 +24,11 @@ namespace BilliardTableManagement
         static string PlayerOne;
         static string PlayerTwo;
 
-        static List<string> TableList = new List<string> { "Table 1", "Table 2", "Table 3", "Table 4" };
-        static List<string> TableCategories = new List<string> { "Regular Table (MAXIMA 7)", "Regular Table (MAXIMA 7)", "VIP ROOM (MAXIMA 7)", "VIP ROOM (MAXIMA 8)" };
-        static List<double> TablePrices = new List<double> { 100.0, 100.0, 250.0, 350.0 };
-        static List<List<string>> Inclusion = new List<List<string>>
-            {
-            new List<string> { "Ventilated Area", "Free Wifi\n" },
-            new List<string> { "Ventilated Area", "Free Wifi\n" },
-            new List<string> { "Air-conditioned Room", "Free Wifi", "Free use of Water Dispenser", "Free Use of Videoke\n" },
-            new List<string> { "Air-conditioned Room", "Free Wifi", "Free use of Water Dispenser", "Free Use of Videoke", "Free Games: Darts, Chess, Uno Cards\n" }
-
-        };
-
-
         static void Main(string[] args)
         {
 
 
-            Process = new bilyarProcessDBL(4); //Initialize the process with the player names and number of tables
+            Process = new bilyarProcessDBL(4); //initialize the table size
             while (true)
             {
                 DisplayOptions(); //Displays yung option sa loop
@@ -81,18 +69,18 @@ namespace BilliardTableManagement
             Console.WriteLine("3. Select and Add Players to a Table"); //CREATE or ADD new matches to selected tables
             Console.WriteLine("4. Update Players From a Table"); //UPDATE the playing players into new players
             Console.WriteLine("5. Remove Players From a Table"); //DELETE or remove players to a selected Table 
-            Console.WriteLine("6. Exit"); 
+            Console.WriteLine("6. Exit");
             Console.WriteLine("-----------------------------------------------------");
         }
         static void DisplayTableCategories()
         {
             Console.WriteLine("\nThe Billiard Tables are Listed Below: ");
-            for (int i = 0; i < TableList.Count; i++)
+            for (int i = 0; i < BilyarDL.TableNames.Count; i++)
             {
-                Console.WriteLine(TableList[i] + " : " + TableCategories[i] + "|" + "PHP "+ TablePrices[i] + "| " + "\nInclusions: \n" + string.Join("\n", Inclusion[i]));
+                Console.WriteLine(BilyarDL.TableNames[i] + " : " + BilyarDL.TableCategories[i] + "|" + "PHP " + BilyarDL.TablePrices[i] + "| " + "\nInclusions: \n" + string.Join("\n", BilyarDL.TableInclusions[i]));
             }
             Console.WriteLine("-----------------------------------------------------");
-            
+
         }
         static void ViewTables()
         {
@@ -110,10 +98,10 @@ namespace BilliardTableManagement
                 }
             }
         }
-        
+
         static void AddPlayers()
         {
-            Console.Write("Enter a Table NUMBER to ADD an Opponent [1-4]: ");
+            Console.Write("Enter a Table Number to Add Players [1-4]: ");
 
             if (int.TryParse(Console.ReadLine(), out int tableNumber))
             {
@@ -143,8 +131,8 @@ namespace BilliardTableManagement
         }
         static void UpdatePlayers()
         {
-            Console.Write("Enter the Table Number [1-4]: ");
-            if(int.TryParse(Console.ReadLine(), out int tableNumber))
+            Console.Write("Enter the Table Number to Update Players [1-4]: ");
+            if (int.TryParse(Console.ReadLine(), out int tableNumber))
             {
                 if (tableNumber >= 1 && tableNumber <= Process.GetTables().Count)
                 {
@@ -170,7 +158,7 @@ namespace BilliardTableManagement
         }
         static void RemovePlayers()
         {
-            Console.Write("Enter a Table NUMBER to REMOVE an Opponent [1-3]: ");
+            Console.Write("Enter a Table Number to Remove Players [1-4]: ");
 
             if (int.TryParse(Console.ReadLine(), out int tableNumber))
             {
@@ -187,6 +175,3 @@ namespace BilliardTableManagement
         }
     }
 }
-
-
-
