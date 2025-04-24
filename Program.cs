@@ -36,24 +36,24 @@ namespace BilliardTableManagement
                 DisplayOptions(); //Displays yung option sa loop
                 Console.Write("\nPlease Enter Selected NUMBER HERE: ");
                 int chosenNumber = Convert.ToInt16(Console.ReadLine());
-                switch (chosenNumber)
+                switch ((Menu)chosenNumber)
                 {
-                    case 1:
+                    case Menu.TablesCategories:
                         DisplayTableCategories();
                         break;
-                    case 2:
+                    case Menu.TablesAvailability:
                         ViewTables();
                         break;
-                    case 3:
+                    case Menu.AddPlayers:
                         AddPlayers();
                         break;
-                    case 4:
+                    case Menu.UpdatePlayers:
                         UpdatePlayers();
                         break;
-                    case 5:
+                    case Menu.RemovePlayers:
                         RemovePlayers();
                         break;
-                    case 6:
+                    case Menu.Exit:
                         Console.WriteLine("Thank you and Goodbye sa Bilyaran ni Kuya ......");
                         return;
                     default:
@@ -176,4 +176,14 @@ namespace BilliardTableManagement
             }
         }
     }
+    enum Menu
+    {
+        TablesCategories = 1,
+        TablesAvailability,
+        AddPlayers,
+        UpdatePlayers,
+        RemovePlayers,
+        Exit
+    }
+
 }
