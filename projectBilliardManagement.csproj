@@ -9,10 +9,13 @@
 
   <ItemGroup>
     <Compile Remove="Bilyaran BusinessDataLogic\**" />
+    <Compile Remove="BilyarCommon\**" />
     <Compile Remove="BilyarDataService\**" />
     <EmbeddedResource Remove="Bilyaran BusinessDataLogic\**" />
+    <EmbeddedResource Remove="BilyarCommon\**" />
     <EmbeddedResource Remove="BilyarDataService\**" />
     <None Remove="Bilyaran BusinessDataLogic\**" />
+    <None Remove="BilyarCommon\**" />
     <None Remove="BilyarDataService\**" />
   </ItemGroup>
 

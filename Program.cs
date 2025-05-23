@@ -16,21 +16,23 @@ using System.Diagnostics;
 using System.Reflection;
 using System.Collections.Generic;
 using System.Linq;
+using BilyarCommon;
+using System.Numerics;
 
 namespace BilliardTableManagement
 {
 
     internal class Program
     {
-        static bilyarProcessDBL Process;
-        static string PlayerOne;
-        static string PlayerTwo;
+        static bilyarProcessDBL Process = new bilyarProcessDBL(4); 
+        static BilyarDL bilyarDataLayer = new BilyarDL();
+
 
         static void Main(string[] args)
         {
 
 
-            Process = new bilyarProcessDBL(4); //initialize the table size
+           // Process = new bilyarProcessDBL(4); //initialize the table size
             while (true)
             {
                 DisplayOptions(); //Displays yung option sa loop
@@ -77,13 +79,40 @@ namespace BilliardTableManagement
         static void DisplayTableCategories()
         {
             Console.WriteLine("\nThe Billiard Tables are Listed Below: ");
-            for (int i = 0; i < BilyarDL.TableNames.Count; i++)
+            List<TableCommon> tables = new List<TableCommon>
+    {
+        new TableCommon("Table 1", "Regular Table (MAXIMA 7)", 100.0, new List<string>{"4 TAKO",
+                    "Ventilation",
+                    "Free WIFI"}),
+        new TableCommon("Table 2", "Regular Table (MAXIMA 7)", 100.0, new List<string>{"Complete Set",
+                    "4 TAKO",
+                    "Ventilation",
+                    "Free WIFI" }),
+                    new TableCommon("Table 3", "VIP ROOM (MAXIMA 7)", 250.0, new List<string>{"Complete Set",
+                    "8 TAKO",
+                    "Air-conditioned Room",
+                    "Free WIFI",
+                    "Water Dispenser",
+                        "Videoke" }),
+                    new TableCommon("Table 4", "VIP ROOM (MAXIMA 8)", 400.0, new List<string>{" Complete Set",
+                    "8 TAKO",
+                    "Air-conditioned Room",
+                    "Free WIFI",
+                    "Water Dispenser",
+                    "Videoke",
+                    "Darts",
+                    "Chess",
+                    "Card Games" }),
+    };
+
+            foreach (var table in tables)
             {
-                Console.WriteLine(BilyarDL.TableNames[i] + " : " + BilyarDL.TableCategories[i] + "|" + "PHP " + BilyarDL.TablePrices[i] + "| " + "\nInclusions: \n" + string.Join("\n", BilyarDL.TableInclusions[i]));
+                Console.WriteLine(table.Name + " : " + table.Category + " PHP " + table.Price +
+                    "\nInclusions:\n" + string.Join("\n", table.Inclusions));
             }
             Console.WriteLine("-----------------------------------------------------");
-
         }
+
         static void ViewTables()
         {
             Console.WriteLine("\n***The Billiard Tables are Listed Below: ***");
@@ -112,9 +141,9 @@ namespace BilliardTableManagement
                     if (string.IsNullOrWhiteSpace(Process.GetTableStatus(tableNumber)))
                     {
                         Console.Write("Enter Player One Name: ");
-                        PlayerOne = Console.ReadLine();
+                       string PlayerOne = Console.ReadLine();
                         Console.Write("Enter Player Two Name: ");
-                        PlayerTwo = Console.ReadLine();
+                       string PlayerTwo = Console.ReadLine();
 
                         Process.SetAssignPlayers(tableNumber, PlayerOne, PlayerTwo);
                         Console.WriteLine("Table " + tableNumber + " : " + PlayerOne + " VERSUS " + PlayerTwo);
@@ -141,9 +170,9 @@ namespace BilliardTableManagement
                     if (!string.IsNullOrWhiteSpace(Process.GetTableStatus(tableNumber)))
                     {
                         Console.Write("Enter Player One Name: ");
-                        PlayerOne = Console.ReadLine();
+                       string PlayerOne = Console.ReadLine();
                         Console.Write("Enter Player Two Name: ");
-                        PlayerTwo = Console.ReadLine();
+                       string PlayerTwo = Console.ReadLine();
                         Process.SetAssignPlayers(tableNumber, PlayerOne, PlayerTwo);
                         Console.WriteLine("Table " + tableNumber + " : " + PlayerOne + " VERSUS " + PlayerTwo + "[UPDATED]");
                     }
